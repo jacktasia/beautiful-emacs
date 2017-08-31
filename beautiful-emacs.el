@@ -55,8 +55,6 @@
 (setq message-log-max t)                                                      ;; If t, log messages but don't truncate the buffer when it becomes large.
 (setq-default cursor-in-non-selected-windows nil)                             ;;
 (setq column-number-mode t)                                                   ;;
-(global-subword-mode t)                                                       ;; 
-
 
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 (setq create-lockfiles nil)
@@ -65,6 +63,8 @@
 (if window-system
   (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend))
 ;; http://stackoverflow.com/a/25438277/24998
+
+(global-subword-mode t)                                                       ;; for better deleting of parts of camalcase symbols
 (global-linum-mode)
 
 (defun display-startup-echo-area-message ()
