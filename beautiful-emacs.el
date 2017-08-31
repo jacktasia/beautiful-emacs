@@ -20,7 +20,7 @@
 (use-package zerodark-theme :ensure t)
 (use-package rainbow-delimiters
   :ensure t
-  :init
+  :config
   (add-hook 'hy-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
@@ -28,7 +28,7 @@
 (use-package pmdm
   :ensure t
   :recipe (:host github :repo "jacktasia/pmdm.el")
-  :init
+  :config
   (add-hook 'kill-emacs-hook 'pmdm-write-opened-files)
   (pmdm-load-files))
 
