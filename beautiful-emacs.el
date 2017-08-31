@@ -23,6 +23,7 @@
 ;; TODO: add all packages
 ;; TODO: add all packages config
 ;; TODO: add all built-in keybindings...
+;; TODO: add in all jack-util.el code that is _still_ being used....
 
 ;;
 ;; start built-in config changes
