@@ -17,8 +17,40 @@
 (straight-use-package 'use-package)
 
 (use-package dumb-jump :ensure t)
-
 (use-package zerodark-theme :ensure t)
+(use-package rainbow-delimiters
+  :ensure t
+  :init
+  (add-hook 'hy-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
+
+(use-package pmdm
+  :ensure t
+  :recipe (:host github :repo "jacktasia/pmdm.el")
+  :init
+  (add-hook 'kill-emacs-hook 'pmdm-write-opened-files)
+  (pmdm-load-files))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-dim-other-buffers-face ((t (:background "#424450"))))
+ '(isearch ((((class color) (min-colors 89)) (:background "#ddbd78" :foreground "#3e4451"))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "dark orange"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "yellow"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "green"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "cyan"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "blue"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "dark violet"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "saddle brown"))))
+ '(show-paren-match ((((class color) (min-colors 89)) (:background "#1f5582"))))
+ '(swiper-line-face ((t (:inherit highlight :background "gray0" :foreground "gray100"))))
+ '(vhl/default-face ((t (:inherit default :background "yellow2")))))
 
 ;; TODO: add all packages
 ;; TODO: add all packages config
