@@ -3,6 +3,8 @@
 ;; https://raw.githubusercontent.com/dieggsy/dotfiles/master/emacs.d/init.org
 ;; http://mescal.imag.fr/membres/arnaud.legrand/misc/init.org
 
+;; TODO: add a bash script that will HTTPS clone, make ln -s, and then run emacs command line to convert org -> el for the first time
+
 
 ;; bootstrap straight.el package manager
 (let ((bootstrap-file (concat user-emacs-directory "straight/bootstrap.el"))
