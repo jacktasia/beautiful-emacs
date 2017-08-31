@@ -1,4 +1,7 @@
 
+;; as org file examples...
+;; https://raw.githubusercontent.com/dieggsy/dotfiles/master/emacs.d/init.org
+;; http://mescal.imag.fr/membres/arnaud.legrand/misc/init.org
 
 
 ;; bootstrap straight.el package manager
