@@ -4,6 +4,7 @@
 ;; http://mescal.imag.fr/membres/arnaud.legrand/misc/init.org
 
 ;; TODO: add a bash script that will HTTPS clone, make ln -s, and then run emacs command line to convert org -> el for the first time
+;; TODO: add jack-util into it's own repo and then load the same way as pmdm
 
 
 ;; bootstrap straight.el package manager
@@ -36,6 +37,50 @@
   :config
   (add-hook 'kill-emacs-hook 'pmdm-write-opened-files)
   (pmdm-load-files))
+
+(use-package visual-regexp
+  :ensure t
+  :bind (("C-c r" . vr/replace)
+	 ("C-c q" . vr/query-replace)))
+
+(use-package whitespace-mode
+  :bind (("C-c w" . whitespace-mode))
+  :config
+  (setq whitespace-line-column 60000))
+
+(use-package expand-region
+  :ensure t
+  :bind (("C-c e" . er/mark-symbol)))
+
+(use-package highlight-symbol
+  :ensure t
+  ;;:commands (highight-symbol-at-point)
+  :bind (("s-p" . highlight-symbol-prev)
+	 ("s-n" . highlight-symbol-next)
+         ("M-p" . highlight-symbol-prev)
+	 ("M-n" . highlight-symbol-next)
+	 ("M-g h" . highlight-symbol-at-point))
+  :config
+  (require 'highlight-symbol)
+  (highlight-symbol-nav-mode 1))
+
+(use-package fic-mode
+  :ensure t
+  :config
+  (add-hook 'clojure-mode-hook 'fic-mode)
+  (add-hook 'go-mode-hook 'fic-mode)
+  (add-hook 'python-mode-hook 'fic-mode)
+  (add-hook 'javascript-mode-hook 'fic-mode)
+  (add-hook 'js-mode-hook 'fic-mode)
+  (add-hook 'web-mode-hook 'fic-mode)
+  (add-hook 'java-mode-hook 'fic-mode)
+  (add-hook 'emacs-lisp-mode-hook 'fic-mode)
+  (add-hook 'web-mode-hook 'fic-mode)
+  (add-hook 'js2-mode-hook 'fic-mode)
+  (add-hook 'terraform-mode-hook 'fic-mode))
+  
+
+;; fic-mode and next-symbol
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
