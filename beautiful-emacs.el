@@ -61,7 +61,7 @@
 	 ("M-n" . highlight-symbol-next)
 	 ("M-g h" . highlight-symbol-at-point))
   :config
-  (require 'highlight-symbol)
+;  (require 'highlight-symbol)
   (highlight-symbol-nav-mode 1))
 
 (use-package fic-mode
@@ -89,7 +89,10 @@
   (setq avy-all-windows nil)
   (setq avy-keys (number-sequence ?a ?z)))
 
-(use-package ws-butler :ensure t)
+(use-package ws-butler 
+  :ensure t
+  :config
+  (ws-butler-global-mode t))
 
 (use-package smex
   :ensure t
@@ -105,8 +108,25 @@
   (key-chord-define-global "fj" 'avy-goto-char))
 
 
+(use-package anzu
+  :ensure t
+  :config
+  (global-anzu-mode +1)
+  (set-face-attribute 'anzu-mode-line nil :foreground "light green" :weight 'bold)
+  (setq anzu-cons-mode-line-p nil)
+  (setcar (cdr (assq 'isearch-mode minor-mode-alist))
+	  '(:eval (anzu--update-mode-line))))
 
-;; fic-mode and next-symbol
+
+;; TODO: company-jedi company-tern company-anaconda company
+
+;; TODO: uniqify
+
+;; TODO:
+;; (when (memq window-system '(mac ns))
+;;   (exec-path-from-shell-initialize))
+
+
 
 
 (custom-set-faces
