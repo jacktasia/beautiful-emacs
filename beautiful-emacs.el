@@ -78,9 +78,36 @@
   (add-hook 'web-mode-hook 'fic-mode)
   (add-hook 'js2-mode-hook 'fic-mode)
   (add-hook 'terraform-mode-hook 'fic-mode))
-  
+
+(use-package avy
+  :ensure t
+  :bind (("M-g l" . avy-goto-line)
+	 ("M-g c" . avy-goto-char)
+	 ("M-g w" . avy-goto-word-0)
+	 ("M-g t" . avy-goto-char-timer))
+  :config
+  (setq avy-all-windows nil)
+  (setq avy-keys (number-sequence ?a ?z)))
+
+(use-package ws-butler :ensure t)
+
+(use-package smex
+  :ensure t
+  :config
+  (smex-initialize))
+
+
+(use-package key-chord
+  :ensure t
+  :recipe (:host github :repo "emacsmirror/key-chord")
+  :config
+  (key-chord-mode 1)
+  (key-chord-define-global "fj" 'avy-goto-char))
+
+
 
 ;; fic-mode and next-symbol
+
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
