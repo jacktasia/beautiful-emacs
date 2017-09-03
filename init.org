@@ -1,3 +1,7 @@
+#+TITLE: Beautiful Emacs
+#+PROPERTY: header-args 
+
+#+begin_src emacs-lisp
 
 ;; as org file examples...
 ;; https://raw.githubusercontent.com/dieggsy/dotfiles/master/emacs.d/init.org
@@ -123,9 +127,20 @@
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets) ;; or "forward"
   (setq uniquify-min-dir-content 3))
 
+(use-package bind-key
+  :ensure t
+  :bind (("C-c p" . beginning-of-buffer)
+         ("C-c n" . end-of-buffer)))
+
+(use-package auto-read-only
+  :ensure t
+  :config
+  (auto-read-only-mode 1)
+  (add-to-list 'auto-read-only-file-regexps "~/.emacs.d/init.el"))
+
 ;; TODO: company-jedi company-tern company-anaconda company
 
-;; TODO: uniqify
+;; TODO: ivy helm grep
 
 ;; TODO:
 ;; (when (memq window-system '(mac ns))
@@ -207,6 +222,7 @@
 ;; end built-in config changes
 ;;
 
+#+end_src
 
 
 
