@@ -11,3 +11,14 @@ With argument ARG, do this that many times. Does NOT add to kill ring."
   (interactive)
   (let ((helm-ag-insert-at-point 'symbol))
     (helm-projectile-ag)))
+
+
+;;;###autoload
+(defun beautiful-company-move-up ()
+  (interactive)
+  (company-complete-common-or-cycle 1))
+
+;;;###autoload
+(defun beautiful-company-move-down ()
+  (interactive)
+  (company-complete-common-or-cycle -1))
