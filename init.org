@@ -39,6 +39,11 @@
   :ensure t
   :bind (("C-s" . swiper)))
 
+;; TODO: make this repo public first
+;; (use-package dumb-diff
+;;   :ensure t
+;;   :recipe (:host github :repo "jacktasia/dumb-diff"))
+
 (use-package pmdm
   :ensure t
   :recipe (:host github :repo "jacktasia/pmdm.el")
@@ -148,6 +153,9 @@
 (use-package company-jedi
   :ensure t)
 
+(use-package company-anaconda
+  :ensure t)
+
 (use-package company
   :ensure t
   :bind (:map company-active-map
@@ -161,6 +169,29 @@
   (setq company-idle-delay 0.1))
 
 
+(use-package hydra
+  :ensure t
+  :config
+  (defhydra hydra-tmux-memory
+    (global-map "C-t")
+    "tmux muscle memeory bindings"
+    ("e" eval-expression "eval expression"  :exit t)
+    ("d" jack-debug-symbol-at-point "debug"  :exit t)
+    ("\"" split-window-below "split below"  :exit t)
+    ("'" split-window-below "split below"  :exit t)
+    ("%" split-window-right "split window right"  :exit t)
+    ("5" split-window-right "split window right"  :exit t)
+    ("q" switch-window "switch window"  :exit t)
+    ("o" other-window "other window"  :exit t)
+    ("w" ivy-switch-buffer "list buffers"  :exit t)
+    ("z" delete-other-windows "zoom"  :exit t))
+  (defhydra hydra-diff
+    (global-map "C-c d")
+    "diff tools"
+    ("g" jack-git-diff "git-diff"  :exit t)
+    ("d" dumb-diff "dumb-diff"  :exit t)
+    ("1" dumb-diff-set-region-as-buffer1 "inject into diff buf 1"  :exit t)
+    ("2" dumb-diff-set-region-as-buffer2 "inject into diff buf 2"  :exit t)))
 
 
 (use-package auto-read-only
@@ -189,9 +220,37 @@
   :bind (("M-g f" . beautiful-helm-projectile-ag-at-point))
   :ensure t)
 
-;; TODO: company-jedi company-tern company-anaconda company
+(use-package persistent-scratch
+  :ensure t
+  :config
+  (persistent-scratch-setup-default))
 
-;; TODO: ivy helm grep
+(use-package undo-tree
+  :bind (:map undo-tree-map
+              ("C-x u" . undo-tree-undo)
+              ("s-Z" . undo-tree-redo)
+              ("C-x v" . undo-tree-visualize))
+  :config (global-undo-tree-mode t))
+
+
+(use-package smartparens
+  :bind (("M-g a" . sp-beginning-of-sexp))
+  :bind (("M-g e" . sp-end-of-sexp))
+  :ensure t)
+
+(use-package magit
+  :bind (("C-x m" . magit-status))
+  :ensure t)
+
+(use-package diff-hl
+  :bind (("C-c 8" . diff-hl-previous-hunk)
+         ("C-c 9" . diff-hl-next-hunk))
+  :config (global-diff-hl-mode 1)
+  :ensure t)
+
+(use-package files
+  :bind (("s-r" . revert-buffer)))
+
 
 ;; TODO:
 ;; (when (memq window-system '(mac ns))
