@@ -35,12 +35,21 @@
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
 
+(use-package swiper
+  :ensure t
+  :bind (("C-s" . swiper)))
+
 (use-package pmdm
   :ensure t
   :recipe (:host github :repo "jacktasia/pmdm.el")
   :config
   (add-hook 'kill-emacs-hook 'pmdm-write-opened-files)
   (pmdm-load-files))
+
+(use-package beautiful-emacs
+  :ensure t
+  :recipe (:host github :repo "jacktasia/beautiful-emacs")
+  :bind (("C-<backspace>" . beautiful-backward-delete-word)))
 
 (use-package visual-regexp
   :ensure t
@@ -65,7 +74,6 @@
 	 ("M-n" . highlight-symbol-next)
 	 ("M-g h" . highlight-symbol-at-point))
   :config
-;  (require 'highlight-symbol)
   (highlight-symbol-nav-mode 1))
 
 (use-package fic-mode
@@ -127,16 +135,59 @@
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets) ;; or "forward"
   (setq uniquify-min-dir-content 3))
 
+
 (use-package bind-key
   :ensure t
   :bind (("C-c p" . beginning-of-buffer)
          ("C-c n" . end-of-buffer)))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-<return>" . set-rectangular-region-anchor)))
+
+(use-package company-jedi
+  :ensure t)
+
+(use-package company
+  :ensure t
+  :bind (:map company-active-map
+         ("C-p" . beautiful-company-move-up)
+	 ("C-n" . beautiful-company-move-down))
+  :config
+  (setq company-dabbrev-downcase nil)
+  (add-hook 'after-init-hook 'global-company-mode)
+  (add-to-list 'company-backends 'company-anaconda)
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (setq company-idle-delay 0.1))
+
+
+
 
 (use-package auto-read-only
   :ensure t
   :config
   (auto-read-only-mode 1)
   (add-to-list 'auto-read-only-file-regexps "~/.emacs.d/init.el"))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file)
+         ("<f1> f" . counsel-describe-function)
+         ("<f1> v" . counsel-describe-variable)
+         ("<f1> l" . counsel-load-library)
+         ("<f2> i" . counsel-info-lookup-symbol)
+         ("<f2> u" . counsel-unicode-char))
+  :ensure t)
+
+(use-package counsel-projectile
+  :bind (("s-t" . counsel-projectile-find-file)
+         ("s-o" . counsel-projectile-find-file))
+  :ensure t)
+
+(use-package helm-ag :ensure t)
+(use-package helm-projectile
+  :bind (("M-g f" . beautiful-helm-projectile-ag-at-point))
+  :ensure t)
 
 ;; TODO: company-jedi company-tern company-anaconda company
 
