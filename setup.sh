@@ -43,6 +43,6 @@ echo -e "\n\nConverting ~/.emacs.d/init.org -> ~/.emacs.d/init.el -> LOADING..."
 emacs --batch --eval "(progn (require 'org) (org-babel-load-file \"${INIT_ORG}\"))"
 
 # set ~/.emacs content to load from the org file
-echo -e "(require 'org)\n(org-babel-load-file \"${INIT_ORG}\")\n;; Edit the beautiful-emacs/init.org file instead!" > $DOT_EMACS
+echo -e "(require 'org)\n(setq vc-follow-symlinks t)\n(org-babel-load-file \"${INIT_ORG}\")\n;; Edit the beautiful-emacs/init.org file instead!" > $DOT_EMACS
 
 echo -e "\n\nDone."
