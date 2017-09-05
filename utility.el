@@ -94,3 +94,10 @@ and `defcustom' forms reset their default values."
   "open up a new scratch buffer"
   (interactive)
   (switch-to-buffer (generate-new-buffer "*scratch*")))
+
+
+;;;###autoload
+(defun beautiful-reload-config ()
+  "Reload the config."
+  (interactive)
+  (org-babel-load-file (expand-file-name "~/.emacs.d/init.org")))
