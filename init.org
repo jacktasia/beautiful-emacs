@@ -65,7 +65,6 @@
   :recipe (:host github :repo "jacktasia/beautiful-emacs")
   :bind (("C-c b" . beautiful-git-blame-line)
 	 ("C-c 5" . beautiful-eval-buffer)
-	 ("C-b" . beautiful-git-blame-line)
 	 ("C-<backspace>" . beautiful-backward-delete-word)))
 
 (use-package visual-regexp
