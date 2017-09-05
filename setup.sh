@@ -11,6 +11,12 @@ then
     mv $INIT_ORG  $INIT_ORG.bbkup
 fi
 
+if [ -L $INIT_ORG ]
+then
+    echo -e "\n\nBacking up existing ~/.emacs.d/init.org"
+    mv $INIT_ORG  $INIT_ORG.bbkup
+fi
+
 if [ -e $DOT_EMACS ]
 then
     echo -e "\n\nBacking up ~/.emacs"
@@ -18,7 +24,8 @@ then
 fi
 
 CUR_DIR=$(pwd)
-BEAUTIFUL_DIR=`dirname $0`
+#BEAUTIFUL_DIR=`dirname $0`
+BEAUTIFUL_DIR=$(cd $(dirname "$0") && pwd -P)
 BEAUTIFUL_INIT_ORG="${BEAUTIFUL_DIR}/init.org"
 
 mkdir -p ~/.emacs.d
