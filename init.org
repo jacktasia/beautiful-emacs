@@ -1,7 +1,7 @@
 #+TITLE: Beautiful Emacs
 #+PROPERTY: header-args 
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle "/tmp/init.el"
 
 ;; as org file examples...
 ;; https://raw.githubusercontent.com/dieggsy/dotfiles/master/emacs.d/init.org
@@ -28,6 +28,15 @@
 ;; bootstrap `use-package` via straight so it is overloaded to use straight.el
 (straight-use-package 'use-package)
 
+(use-package f
+  :ensure t)
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize)))
+
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
          ("M-g j" . dumb-jump-go)
@@ -37,8 +46,19 @@
   :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
   :ensure t)
 
+(use-package all-the-icons
+  :if window-system
+  :ensure t
+  :config
+  (when (not (member "all-the-icons" (font-family-list)))
+    (all-the-icons-install-fonts t)))
 
-(use-package zerodark-theme :ensure t)
+(use-package zerodark-theme
+  :ensure t
+  :config
+  (load-theme 'zerodark t nil)
+  (zerodark-setup-modeline-format))
+
 (use-package rainbow-delimiters
   :ensure t
   :config
@@ -67,6 +87,8 @@
   :recipe (:host github :repo "jacktasia/beautiful-emacs")
   :bind (("C-c b" . beautiful-git-blame-line)
 	 ("C-c 5" . beautiful-eval-buffer)
+	 ("M-," . beautiful-new-scratch)
+	 ("C-c u" . beautiful-reload-config)
 	 ("C-<backspace>" . beautiful-backward-delete-word)))
 
 (use-package visual-regexp
@@ -157,6 +179,7 @@
 (use-package bind-key
   :ensure t
   :bind (("C-c p" . beginning-of-buffer)
+         ("C-c l" . goto-line)
          ("C-c n" . end-of-buffer)))
 
 (use-package multiple-cursors
@@ -243,6 +266,7 @@
   :ensure t)
 
 (use-package persistent-scratch
+  :if window-system
   :ensure t
   :config
   (persistent-scratch-setup-default))
