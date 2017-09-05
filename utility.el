@@ -22,3 +22,75 @@ With argument ARG, do this that many times. Does NOT add to kill ring."
 (defun beautiful-company-move-down ()
   (interactive)
   (company-complete-common-or-cycle -1))
+
+(defun beautiful-insert-code-next-line (code)
+  (move-end-of-line nil)
+  (insert "\n")
+  (beautiful-match-above-indentation)
+  (insert code))
+
+;;;###autoload
+(defun beautiful-match-above-indentation ()
+  (interactive)
+  (let ((above-col (save-excursion
+                     (previous-line)
+                     (back-to-indentation)
+                     (current-column)))
+        (below-col (save-excursion
+                     (next-line)
+                     (back-to-indentation)
+                     (current-column))))
+    (move-beginning-of-line nil)
+    (delete-horizontal-space)
+    (insert-char (string-to-char " ") (max below-col above-col))))
+
+;;;###autoload
+(defun beautiful-debug-symbol-at-point ()
+  (interactive)
+  (let ((cur-symbol (thing-at-point 'symbol))
+        (cur-ext (f-ext (buffer-file-name))))
+    (cond
+     ((string= cur-ext "py")
+      (beautiful-insert-code-next-line (format "print(\'value of `%s`\', %s)" cur-symbol cur-symbol)))
+     ((string= cur-ext "js")
+      (beautiful-insert-code-next-line (format "console.log(\'value of `%s`\', %s);" cur-symbol cur-symbol))))))
+
+;;;###autoload
+(defun beautiful-git-blame-line ()
+  (interactive)
+  (let ((cmd_tmpl "git blame -L %s,+3 %s")
+		(current_line (cadr (split-string (what-line) " "))))
+	(shell-command (format cmd_tmpl current_line (buffer-file-name)))))
+
+;;;###autoload
+(defun beautiful-git-diff ()
+  (interactive)
+  (let* ((cmd_tmpl "git diff %s")
+		(git_diff_cmd (format cmd_tmpl (buffer-file-name)))
+		(file_name (car (last (split-string (buffer-file-name) "/"))))
+		(buffer_title (concat "DIFF " file_name " on " (format-time-string "%D @ %H:%M:%S"))))
+	(shell-command git_diff_cmd)
+	(with-current-buffer (get-buffer "*Shell Command Output*")
+		(rename-buffer buffer_title)
+		(diff-mode))))
+
+;; http://emacs.stackexchange.com/a/2302
+;;;###autoload
+(defun beautiful-eval-buffer ()
+  "Execute the current buffer as Lisp code.
+Top-level forms are evaluated with `eval-defun' so that `defvar'
+and `defcustom' forms reset their default values."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (not (eobp))
+      (forward-sexp)
+      (eval-defun nil)))
+  (message "%s eval'd" (buffer-file-name)))
+
+; based off of http://stackoverflow.com/a/10364547/24998
+;;;###autoload
+(defun beautiful-new-scratch ()
+  "open up a new scratch buffer"
+  (interactive)
+  (switch-to-buffer (generate-new-buffer "*scratch*")))
