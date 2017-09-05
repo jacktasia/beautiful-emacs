@@ -26,7 +26,16 @@
 ;; bootstrap `use-package` via straight so it is overloaded to use straight.el
 (straight-use-package 'use-package)
 
-(use-package dumb-jump :ensure t)
+(use-package dumb-jump
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g i" . dumb-jump-go-prompt)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
+  :ensure)
+
+
 (use-package zerodark-theme :ensure t)
 (use-package rainbow-delimiters
   :ensure t
@@ -54,7 +63,10 @@
 (use-package beautiful-emacs
   :ensure t
   :recipe (:host github :repo "jacktasia/beautiful-emacs")
-  :bind (("C-<backspace>" . beautiful-backward-delete-word)))
+  :bind (("C-c b" . beautiful-git-blame-line)
+	 ("C-c 5" . beautiful-eval-buffer)
+	 ("C-b" . beautiful-git-blame-line)
+	 ("C-<backspace>" . beautiful-backward-delete-word)))
 
 (use-package visual-regexp
   :ensure t
@@ -176,7 +188,7 @@
     (global-map "C-t")
     "tmux muscle memeory bindings"
     ("e" eval-expression "eval expression"  :exit t)
-    ("d" jack-debug-symbol-at-point "debug"  :exit t)
+    ("d" beautiful-debug-symbol-at-point "debug"  :exit t)
     ("\"" split-window-below "split below"  :exit t)
     ("'" split-window-below "split below"  :exit t)
     ("%" split-window-right "split window right"  :exit t)
@@ -188,7 +200,7 @@
   (defhydra hydra-diff
     (global-map "C-c d")
     "diff tools"
-    ("g" jack-git-diff "git-diff"  :exit t)
+    ("g" beautiful-git-diff "git-diff"  :exit t)
     ("d" dumb-diff "dumb-diff"  :exit t)
     ("1" dumb-diff-set-region-as-buffer1 "inject into diff buf 1"  :exit t)
     ("2" dumb-diff-set-region-as-buffer2 "inject into diff buf 2"  :exit t)))
