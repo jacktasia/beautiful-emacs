@@ -101,3 +101,21 @@ and `defcustom' forms reset their default values."
   "Reload the config."
   (interactive)
   (org-babel-load-file (expand-file-name "~/.emacs.d/init.org")))
+
+
+; http://stackoverflow.com/a/3417473/24998 adding confirmation
+;;;###autoload
+(defun beautiful-kill-other-buffers ()
+    "Kill all other buffers."
+    (interactive)
+    (when (y-or-n-p "Kill all other buffers? ")
+      (mapc 'kill-buffer
+            (delq (current-buffer)
+                  (remove-if-not 'buffer-file-name (buffer-list))))))
+
+;;;###autoload
+(defun beautiful-kill-all-buffers ()
+    "Kill all buffers."
+    (interactive)
+    (when (y-or-n-p "Kill all buffers? ")
+      (mapc 'kill-buffer (buffer-list))))
