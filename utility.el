@@ -1,5 +1,12 @@
 
 ;;;###autoload
+(defun beautiful-backward-kill-line (arg)
+  "removes all tabs/spaces on the front of the line regardless of where your cursor is"
+  (interactive "p")
+  (back-to-indentation)
+  (kill-line 0))
+
+;;;###autoload
 (defun beautiful-backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
 With argument ARG, do this that many times. Does NOT add to kill ring."

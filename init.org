@@ -87,6 +87,7 @@
   :bind (("C-c b" . beautiful-git-blame-line)
 	 ("C-c 5" . beautiful-eval-buffer)
 	 ("M-," . beautiful-new-scratch)
+	 ("M-u" . beautiful-backward-kill-line)
 	 ("C-c u" . beautiful-reload-config)
 	 ("C-c x" . beautiful-kill-all-buffers)
 	 ("C-<backspace>" . beautiful-backward-delete-word)))
