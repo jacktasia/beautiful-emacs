@@ -70,10 +70,9 @@
   :ensure t
   :bind (("C-s" . swiper)))
 
-;; TODO: make this repo public first
-;; (use-package dumb-diff
-;;   :ensure t
-;;   :recipe (:host github :repo "jacktasia/dumb-diff"))
+(use-package dumb-diff
+   :ensure t
+   :recipe (:host github :repo "jacktasia/dumb-diff"))
 
 (use-package pmdm
   :ensure t
@@ -384,6 +383,8 @@
 (global-linum-mode)
 
 
+(when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
+  (set-default-font "Iosevka"))
 
 
 (let ((my-select-color "light green")) ;; #83F52C is a neon green, FF8300 is orange -- but plain "green" is also nice
