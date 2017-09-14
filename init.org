@@ -46,6 +46,11 @@
   :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
   :ensure t)
 
+(use-package ido-completing-read+
+  :ensure t
+  :config
+  (ido-ubiquitous-mode t))
+
 (use-package all-the-icons
   :if window-system
   :ensure t
@@ -253,6 +258,13 @@
          ("<f1> l" . counsel-load-library)
          ("<f2> i" . counsel-info-lookup-symbol)
          ("<f2> u" . counsel-unicode-char))
+  :ensure t)
+
+(use-package projectile
+  :diminish
+  :config
+  (projectile-global-mode +1)
+  (setq projectile-enable-caching t)
   :ensure t)
 
 (use-package counsel-projectile
